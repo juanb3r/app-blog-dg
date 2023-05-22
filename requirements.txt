@@ -1,4 +1,6 @@
 Django==4.2.1
 djangorestframework==3.14.0
 drf-yasg==1.21.5
+pysqlite3
+pysqlite3-binary
 pytest==7.3.1
