@@ -3,4 +3,6 @@ djangorestframework
 drf-yasg
 pytest-django
 pytest
+pysqlite3
+pysqlite3-binary
 ruamel.yaml.clib
