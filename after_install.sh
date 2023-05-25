@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 
-# Install libaries
-cd /var/www/backend
-virtualenv -p python3 venv
+# kill any servers that may be running in the background 
+sudo pkill -f runserver
+
+# kill frontend servers if you are deploying any frontend
+# sudo pkill -f tailwind
+# sudo pkill -f node
+
+cd /home/ubuntu/django-aws_cicd/
+
+# activate virtual environment
+python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py collectstatic --no-input
 
-# Set permission for all files
-sudo chown -R www-data:www-data /var/www/
+install requirements.txt
+pip install -r /home/ubuntu/django-aws_cicd/requirements.txt
 
-# Restart services
-sudo -Hu www-data chmod a+x /var/www/backend/server_configs/scripts/gunicorn_django.sh
-sudo service supervisor restart
-sudo service nginx restart
+# run server
+screen -d -m python3 manage.py runserver 0:8000
