@@ -1,10 +1,20 @@
+
 version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/app-blog-dg
+    destination: /var/www/backend
+  - source: server_configs/nginx/backend.conf
+    destination: /etc/nginx/sites-enabled/
+    runas: ubuntu
+  - source: server_configs/nginx/backend.conf
+    destination: /etc/nginx/sites-available/
+    runas: ubuntu
+  - source: server_configs/supervisor/backend_supervisor.conf
+    destination: /etc/supervisor/conf.d
+    runas: ubuntu
 hooks:
   BeforeInstall:
-      - location: scripts/before_install.sh
+      - location: server_configs/scripts/before_install.sh
   AfterInstall:
-      - location: scripts/after_install.sh
+      - location: server_configs/scripts/after_install.sh

@@ -1,20 +1,18 @@
 #!/usr/bin/env bash
 
-# kill any servers that may be running in the background 
-sudo pkill -f runserver
-
-# kill frontend servers if you are deploying any frontend
-# sudo pkill -f tailwind
-# sudo pkill -f node
-
-cd /home/ubuntu/app-blog-dg/
-
-# activate virtual environment
-python3 -m venv venv
+# Install libaries
+cd /var/www/backend
+virtualenv -p python3 venv
 source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py collectstatic --no-input
 
-install requirements.txt
-pip install -r /home/ubuntu/app-blog-dg/requirements.txt
+# Set permission for all files
+sudo chown -R www-data:www-data /var/www/
 
-# run server
-screen -d -m python3 manage.py runserver 0:8000
+# Restart services
+sudo -Hu www-data chmod a+x /var/www/backend/server_configs/scripts/gunicorn_django.sh
+sudo service supervisor restart
+sudo service nginx restart
+view raw
