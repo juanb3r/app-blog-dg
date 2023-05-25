@@ -14,7 +14,7 @@ phases:
       - echo "Before running tests"
       - sudo ls /root
       - pip install -r requirements.txt
-        - chmod a+x ./server_configs/scripts/add_mysql.sh
+      - chmod a+x ./server_configs/scripts/add_mysql.sh
       - sudo ./server_configs/scripts/add_mysql.sh
       - sudo apt-get install -y mysql-server
       - service mysql start
